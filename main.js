@@ -6,6 +6,29 @@ const placeholder = document.querySelector('input')
 
 const url = `https://proxy-itunes-api.glitch.me/search?term=${artistSearch.value}&limit=15&media=music&entity=song`
 
+function createCards (text, text, _img) {
+    fetch (url, {
+        method: "POST",
+        headers: {"Content-Type" : "application/JSON"} ,
+        page: JSON.stringify({
+            Artist: artistTerm,
+            Song: songTerm,
+            Album: albumTerm
+        })
+        })
+        .then (response => response.json())
+        .then (data => renderResults(data))
+        .then (console.log (banana))
+}
+
+
+
+
+
+
+
+
+
 function retrieveResults(data) {
     fetch(url)
     .then(response => response.json)
@@ -27,17 +50,4 @@ function renderResults (data) {
     musicInfo.appendChild(searchResults)
 }
 
-function createCards (text, text, _img) {
-    fetch (url, {
-        method: "POST",
-        headers: {"Content-Type" : "application/JSON"} ,
-        body: JSON.stringify({
-            Artist: artistTerm,
-            Song: songTerm,
-            Album: albumTerm
-        })
-        })
-        .then (response => response.json())
-        .then (data => renderResults(data))
-        .then (console.log (banana))
-}
+
