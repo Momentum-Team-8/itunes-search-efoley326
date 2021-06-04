@@ -6,15 +6,16 @@
   <script src="main.js" defer></script>
   <title>Music Search</title>
 </head>
-<body>
+<body id="page">
+  <form>
   <h1>Music Search</h1>
- 
-  <ul class = 'results'>
-    
-    <input placeholder="what do you want to hear?" type="text" id="New-Search"> 
 
-    <button class="Search-Button" type = "Submit">Search</button>
+  <input placeholder="who are you looking for?" type="text" id="New-Search" required> 
+
+    <button id="Search-Button" type = "Submit">Search</button>
+  <ul id = 'results'>
 
   </ul>
+</form>
 </body>
 </html>
