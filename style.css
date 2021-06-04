@@ -1,0 +1,48 @@
+* {
+    margin: 20px;
+    box-sizing:border-box;
+}
+
+h1 {
+    width: 80%;
+    height: fit-content;
+    box-sizing: border-box;
+    border-style: ridge;
+    border: black;
+    font-family: Chalkduster;
+    font-size: 60px;
+    text-align:center;
+    color: darkred;
+}
+h2{
+    font-family:Chalkduster;
+    text-align:center;
+    color: darkred;
+}
+
+#results {
+    list-style-type: none;
+    display: flexbox;
+    width: 90%;
+    height: auto;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+ .card {
+    width: 300px;
+    height: fit-content;
+    display: inline-block;
+    padding: 20px 20px 20px 20px;
+ }
+
+ .artistname {
+     font-family: didot;
+     text-align: center;
+ }
+ .songname {
+     font-family: didot;
+     font-style:italic;
+     text-align: center;
+ }
