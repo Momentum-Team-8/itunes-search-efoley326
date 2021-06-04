@@ -1,90 +1,59 @@
-const url = 'https://proxy-itunes-api.glitch.me/search?term=${artistSearch.value}&limit=15&media=music&entity=song'
-const page = document.querySelector('body')
-const placeholder = document.querySelector('input')
+const url = "https://itunes.apple.com/search?"
+const form = document.querySelector("form")
+const page = document.getElementById("page")
+const searchBar = document.getElementById("New-Search")
 const play = document.querySelector('.play')
 const pause = document.querySelector('.pause')
 const stop = document.querySelector('.stop')
+const resultGrid = document.getElementById("results")
 
 //variables ^^^^^^^^^^^^^^^^^^^^^^
-// available attributes: mixTerm, 
-//genreIndex, artistTerm, composerTerm, albumTerm, ratingIndex, songTerm
+
+
 //functions vvvvvvvvvvvvvvvvvvvvvv
-
 function retrieveResults() {
-    fetch(url + 'term=' + `${search}`)
-    .then(response => response.json())
-    .then(data => body.innerHTML)
+    const barInput = searchBar.value
+    fetch (url + 'term=' + `${barInput}` + '&limit=20' + '&entity=song')
+    .then(res => res.json())
+    .then (data => {
+        for (let x of data.results){
+            createResults(x)
+}
+})
 }
 
-function generateResults () {
-    fetch (url, {
-        method: "POST",
-        page: JSON.stringify({
-            Artist: artistTerm,
-            Song: songTerm,
-            Album: albumTerm
-        })
-        })
-        .then (response => response.json())
-        .then (data => renderResults(data))
-    }
+function createResults (data) {
+    const resultCard = document.createElement('li')
+    resultCard.classList.add('card')
+    resultGrid.appendChild(resultCard)
 
-function renderResults () {
-    const searchResults = document.createElement('li')
-    searchResults.id = data.id
-    searchResultsText (searchResults, data)
-    songTitle.appendChild(searchResults)
+    const artistName = document.createElement('div')
+    artistName.classList.add('artistname')
+    resultCard.appendChild(artistName)
+    artistName.innerHTML = data.artistName
+
+    const trackName = document.createElement('div')
+    trackName.classList.add('songname')
+    resultCard.appendChild(trackName)
+    trackName.innerHTML= data.trackName
+
+    const albumArt = document.createElement('img')
+    albumArt.classList.add('albumart')
+    resultCard.appendChild(albumArt)
+    albumArt.src = data.artworkUrl100
+
+    const preview = document.createElement('source')
+    const audio = document.createElement('audio')
+    resultCard.appendChild(preview)
+    preview.controls = true
+    preview.src = data.previewUrl
+    audio.appendChild(preview)
 }
 
-function searchResultsText (searchResults, data)
-{
-    const controlButtons = document.createElement ('h2')
-    const playButton = document.createElement ('button')
-    playButton.innerHTML = "▶️"
-    playButton.classList.add ("play")
-    const pauseButton = document.createElement ('button')
-    pauseButton.innerHTML = "⏸️ "
-    pauseButton.classList.add ("pause")
-    const stopButton = document.createElement ('button')
-    stopButton.innerHTML = "⏹️"
-    stopButton.classList.add ("stop")
-    controlButtons.appendChild(playButton)
-    controlButtons.appendChild(pauseButton)
-    controlButtons.appendChild(stopButton)
-}
 
-const song = document.createElement('audio')
-
-
-
-
-
-.play.addEventListener ('click', event => {
-    event.preventDefault();
-    if (event.target.classList.contains("play")) {
-        playSong(event.target)
-    }
-})
-.pause.addEventListener ('click', event => {
-    event.preventDefault();
-    if (event.target.classList.contains("pause")) {
-        pauseSong(event.target)
-    }
-})
-playButton.addEventListener ('click', event => {
-    event.preventDefault();
-    if (event.target.classList.contains("stop")) {
-        stopSong(event.target)
-    }
-})
-
-
-
-
-page.addEventListener('submit', event => {
+// search bar and submit button
+form.addEventListener('submit', event => {
     event.preventDefault()
-    renderResults(placeholder.value)
-})
-    
-
-
+    retrieveResults()
+}
+)
