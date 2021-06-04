@@ -2,9 +2,6 @@ const url = "https://itunes.apple.com/search?"
 const form = document.querySelector("form")
 const page = document.getElementById("page")
 const searchBar = document.getElementById("New-Search")
-const play = document.querySelector('.play')
-const pause = document.querySelector('.pause')
-const stop = document.querySelector('.stop')
 const resultGrid = document.getElementById("results")
 
 //variables ^^^^^^^^^^^^^^^^^^^^^^
@@ -42,13 +39,14 @@ function createResults (data) {
     resultCard.appendChild(albumArt)
     albumArt.src = data.artworkUrl100
 
-    const preview = document.createElement('source')
     const audio = document.createElement('audio')
-    resultCard.appendChild(preview)
-    preview.controls = true
-    preview.src = data.previewUrl
-    audio.appendChild(preview)
+    const songPlay = document.createElement('source')
+    audio.appendChild(songPlay)
+    audio.controls = true
+    audio.src = data.previewUrl
+    resultCard.appendChild(audio)
 }
+
 
 
 // search bar and submit button
@@ -57,3 +55,8 @@ form.addEventListener('submit', event => {
     retrieveResults()
 }
 )
+
+function clearInput() {
+
+    searchBar.value = "";
+}
